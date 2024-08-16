@@ -1,22 +1,30 @@
 return {
   {
-  "williamboman/mason.nvim",
-  config = function()
-  require("mason").setup()
-
-  end
-},
+    "williamboman/mason.nvim",
+    config = function()
+      require("mason").setup()
+    end,
+  },
   {
-  "williamboman/mason-lspconfig.nvim",
+    "williamboman/mason-lspconfig.nvim",
     config = function()
       require("mason-lspconfig").setup({
-        ensure_installed = {"bashls", "tailwindcss", "dockerls",
-          "gopls", "html", "tsserver", "spectral", "lua_ls", "marksman",
-          "pico8_ls", "pyright", "grammarly"
-        }
+        ensure_installed = {
+          "bashls",
+          "tailwindcss",
+          "dockerls",
+          "gopls",
+          "html",
+          "tsserver",
+          "spectral",
+          "lua_ls",
+          "marksman",
+          "pico8_ls",
+          "pyright",
+          "grammarly",
+        },
       })
-
-    end
+    end,
   },
   {
     "neovim/nvim-lspconfig",
@@ -26,9 +34,9 @@ return {
       lspconfig.tsserver.setup({})
 
       vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
-      vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
+      vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
+      -- vim.keymap.set("n", "<leader>gr", vim.lsp.buf.X, {})
       vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
-    end
-  }
-
+    end,
+  },
 }
