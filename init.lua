@@ -31,11 +31,20 @@ require("lazy").setup({
     { "nvim-lua/plenary.nvim" },
     { "nvim-telescope/telescope.nvim", tag = "0.1.8", dependencies = { "nvim-lua/plenary.nvim" } },
     { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+    {
+      "nvim-neo-tree/neo-tree.nvim",
+      branch = "v3.x",
+      dependencies = {
+        "nvim-lua/plenary.nvim",
+        "nvim-tree/nvim-web-devicons",
+        "MunifTanjim/nui.nvim",
+        -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+    }
+}
   },
   install = {},
   checker = { enabled = true },
-}
-)
+})
 
 local builtin_telescope = require("telescope.builtin")
 vim.keymap.set("n", "<C-p>", builtin_telescope.find_files, {})
@@ -48,3 +57,6 @@ config_treesitter.setup({
   indent = { enable = true },
 }
 )
+
+
+vim.keymap.set("n", "<C-n>", "<Cmd>Neotree toggle<CR>")
