@@ -5,6 +5,7 @@ vim.cmd("set shiftwidth=2")
 vim.cmd("set clipboard+=unnamedplus")
 vim.cmd("colorscheme torte")
 vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
 
 
 -- Bootstrap lazy.nvim
@@ -23,40 +24,6 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
   end
 end
 vim.opt.rtp:prepend(lazypath)
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
+
 -- Setup lazy.nvim
-require("lazy").setup({
-  spec = {
-    { "nvim-lua/plenary.nvim" },
-    { "nvim-telescope/telescope.nvim", tag = "0.1.8", dependencies = { "nvim-lua/plenary.nvim" } },
-    { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
-    {
-      "nvim-neo-tree/neo-tree.nvim",
-      branch = "v3.x",
-      dependencies = {
-        "nvim-lua/plenary.nvim",
-        "nvim-tree/nvim-web-devicons",
-        "MunifTanjim/nui.nvim",
-        -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
-    }
-}
-  },
-  install = {},
-  checker = { enabled = true },
-})
-
-local builtin_telescope = require("telescope.builtin")
-vim.keymap.set("n", "<C-p>", builtin_telescope.find_files, {})
-vim.keymap.set("n", "<leader>fg", builtin_telescope.live_grep, {})
-
-local config_treesitter = require("nvim-treesitter.configs")
-config_treesitter.setup({
-  ensure_installed = {"lua", "javascript", "typescript", "go", "python"},
-  highlight = { enable = true },
-  indent = { enable = true },
-}
-)
-
-
-vim.keymap.set("n", "<C-n>", "<Cmd>Neotree toggle<CR>")
+require("lazy").setup("plugins")
