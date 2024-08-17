@@ -33,4 +33,4 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
-vim.api.nvim_create_user_command("RunPy", "silent !python3 %", {})
+vim.api.nvim_create_user_command("RunPy", "silent !python %", {})
