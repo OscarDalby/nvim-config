@@ -62,5 +62,21 @@ vim.keymap.set(
 
 vim.api.nvim_set_hl(0, "Normal", { fg = vim.api.nvim_get_hl(0, { name = "Normal" }).fg, bg = "black" })
 
+vim.api.nvim_set_hl(0, "NvimTreeNormal", { fg = "#000000", bg = "#000000" })
+
+-- NvimTree
+-- NvimTreeNormal = { fg = c.fg_sidebar, bg = c.bg_sidebar },
+-- NvimTreeRootFolder = { fg = c.blue, style = "bold" },
+-- NvimTreeGitDirty = { fg = c.git.change },
+-- NvimTreeGitNew = { fg = c.git.add },
+-- NvimTreeGitDeleted = { fg = c.git.delete },
+-- NvimTreeSpecialFile = { fg = c.purple, style = "underline" },
+-- LspDiagnosticsError = { fg = c.error },
+-- LspDiagnosticsWarning = { fg = c.warning },
+-- LspDiagnosticsInformation = { fg = c.info },
+-- LspDiagnosticsHint = { fg = c.hint },
+-- NvimTreeIndentMarker = { fg = c.fg_gutter },
+-- NvimTreeImageFile = { fg = c.fg_sidebar },
+-- NvimTreeSymlink = { fg = c.blue },
 
 vim.opt.guifont = "3270 Nerd Font Regular"
