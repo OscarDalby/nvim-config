@@ -61,3 +61,6 @@ vim.keymap.set(
 )
 
 vim.api.nvim_set_hl(0, "Normal", { fg = vim.api.nvim_get_hl(0, { name = "Normal" }).fg, bg = "black" })
+
+
+vim.opt.guifont = "3270 Nerd Font Regular"
