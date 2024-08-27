@@ -33,10 +33,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
-some_unused_func = function()
-  printh("hello!")
-end
-
 vim.api.nvim_create_user_command("RunPy", "silent !python %", {})
 
 vim.keymap.set("n", "<leader>sh", ":split<CR>", { desc = "split buffer horizontally" })
@@ -45,8 +41,8 @@ vim.keymap.set("n", "<leader>sv", ":vsplit<CR>", { desc = "split buffer vertical
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "python",
   callback = function()
-    vim.opt_local.foldmethod = "indent"
-    vim.opt_local.foldlevel = 2
+    vim.opt_local.foldmethod = "manual"
+    -- vim.opt_local.foldlevel = 2
   end,
 })
 -- moving around quickly with CTRL-arrows
@@ -72,6 +68,24 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
   end,
 })
 
+-- Run current file (python)
+local function run_current_python_file()
+  local file_path = vim.api.nvim_buf_get_name(0)
+  local file_dir, file_name = file_path:match("(.+)/(.+).py$")
+  local module_path = file_dir:gsub("/", ".") .. "." .. file_name
+  local py_cmd = vim.api.nvim_replace_termcodes("python -m " .. module_path .. "<cr>", true, false, true)
+  local percent_of_win = 0.4
+  local curr_win_height = vim.api.nvim_win_get_height(0)
+  local term_height = math.floor(curr_win_height * percent_of_win)
+  vim.cmd(":below " .. term_height .. "split | term")
+  vim.api.nvim_feedkeys(py_cmd, "t", false)
+end
+
+vim.keymap.set({ "n" }, "<C-r>", "", {
+  desc = "Run .py file via Neovim built-in terminal",
+  callback = run_current_python_file,
+})
+
 vim.api.nvim_set_hl(0, "Normal", { fg = vim.api.nvim_get_hl(0, { name = "Normal" }).fg, bg = "black" })
 
 vim.api.nvim_set_hl(0, "NvimTreeNormal", { fg = "#000000", bg = "#000000" })
@@ -92,3 +106,5 @@ vim.api.nvim_set_hl(0, "NvimTreeNormal", { fg = "#000000", bg = "#000000" })
 -- NvimTreeSymlink = { fg = c.blue },
 
 vim.opt.guifont = "3270 Nerd Font Regular"
+
+-- vim.keymap.set("n", "<C-n>", ":SidebarNvimToggle<CR>")
