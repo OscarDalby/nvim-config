@@ -107,4 +107,6 @@ vim.api.nvim_set_hl(0, "NvimTreeNormal", { fg = "#000000", bg = "#000000" })
 
 vim.opt.guifont = "3270 Nerd Font Regular"
 
--- vim.keymap.set("n", "<C-n>", ":SidebarNvimToggle<CR>")
+-- golang lsp setup
+
+require("lspconfig").gopls.setup({})
