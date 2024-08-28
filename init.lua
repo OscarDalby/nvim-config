@@ -107,6 +107,11 @@ vim.api.nvim_set_hl(0, "NvimTreeNormal", { fg = "#000000", bg = "#000000" })
 
 vim.opt.guifont = "3270 Nerd Font Regular"
 
--- golang lsp setup
+vim.cmd("set ignorecase")
+vim.cmd("set smartcase")
 
+-- golang lsp setup
 require("lspconfig").gopls.setup({})
+
+vim.opt.title = true
+vim.opt.titlestring = [[%t – %{fnamemodify(getcwd(), ':t')}]]
