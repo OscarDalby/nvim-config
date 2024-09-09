@@ -105,13 +105,12 @@ vim.api.nvim_set_hl(0, "NvimTreeNormal", { fg = "#000000", bg = "#000000" })
 -- NvimTreeImageFile = { fg = c.fg_sidebar },
 -- NvimTreeSymlink = { fg = c.blue },
 
-vim.opt.guifont = "3270 Nerd Font Regular"
-
-vim.cmd("set ignorecase")
-vim.cmd("set smartcase")
+-- vim.opt.guifont = "3270 Nerd Font Regular"
 
 -- golang lsp setup
+
 require("lspconfig").gopls.setup({})
 
 vim.opt.title = true
-vim.opt.titlestring = [[%t – %{fnamemodify(getcwd(), ':t')}]]
+vim.opt.titlelen = 0 -- do not shorten title
+vim.opt.titlestring = 'nvim %{expand("%:p")}'
