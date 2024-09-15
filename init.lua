@@ -33,42 +33,32 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
-vim.api.nvim_create_user_command("RunPy", "silent !python %", {})
-
-vim.keymap.set("n", "<leader>sh", ":split<CR>", { desc = "split buffer horizontally" })
-vim.keymap.set("n", "<leader>sv", ":vsplit<CR>", { desc = "split buffer vertically" })
-
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = "python",
-	callback = function()
-		vim.opt_local.foldmethod = "manual"
-		-- vim.opt_local.foldlevel = 2
-	end,
-})
--- moving around quickly with CTRL-arrows
+-- Moving around quickly with CTRL-arrows
 vim.keymap.set("n", "<C-Up>", "10k", { noremap = true, silent = true })
 vim.keymap.set("n", "<C-Down>", "10j", { noremap = true, silent = true })
-
 vim.keymap.set("n", "<C-Left>", "b", { noremap = true, silent = true })
 vim.keymap.set("n", "<C-Right>", "e", { noremap = true, silent = true })
 
--- replace all found with LDR-r-a
-vim.keymap.set(
-	"n",
-	"<Leader>ra",
-	[[:%s/\<<C-r>//\<<C-r>//g<Left><Left>]],
-	{ desc = "Replace all instances of a found thing" }
-)
-
 -- Open the minimap for specific file types
 vim.api.nvim_create_autocmd("BufWinEnter", {
-	pattern = { "*.js", "*.jsx", "*.lua", "*.py", "*.go", "*.css", "*.html", "*.cs" },
+	pattern = { "*.js", "*.jsx", "*.ts", "*.tsx", "*.c", "*.lua", "*.py", "*.go", "*.css", "*.html", "*.cs" },
 	callback = function()
 		require("mini.map").open()
 	end,
 })
 
--- Run current file (python)
+-- Set the background/foreground to pure black regardless of theme
+vim.api.nvim_set_hl(0, "Normal", { fg = vim.api.nvim_get_hl(0, { name = "Normal" }).fg, bg = "black" })
+vim.api.nvim_set_hl(0, "NvimTreeNormal", { fg = "#000000", bg = "#000000" })
+-- Oil keymap
+vim.keymap.set("n", "<C-o>", ":Oil<CR>", { noremap = true, silent = true })
+-- Window title
+vim.opt.title = true
+vim.opt.titlelen = 0
+vim.opt.titlestring = 'nvim %{expand("%:p")}'
+
+-- LANGUAGE-SPECIFIC SETUPS
+-- Python
 local function run_current_python_file()
 	local file_path = vim.api.nvim_buf_get_name(0)
 	local file_dir, file_name = file_path:match("(.+)/(.+).py$")
@@ -81,38 +71,29 @@ local function run_current_python_file()
 	vim.api.nvim_feedkeys(py_cmd, "t", false)
 end
 
+vim.api.nvim_create_user_command("RunPy", "silent !python %", {})
+-- Folds
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "python",
+	callback = function()
+		vim.opt_local.foldmethod = "manual"
+		-- vim.opt_local.foldlevel = 2
+	end,
+})
+
 vim.keymap.set({ "n" }, "<C-r>", "", {
 	desc = "Run .py file via Neovim built-in terminal",
 	callback = run_current_python_file,
 })
+-- increase the tab width in *.py files
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "python",
+	callback = function()
+		vim.bo.tabstop = 4
+		vim.bo.shiftwidth = 4
+		vim.bo.expandtab = true
+	end,
+})
 
-vim.api.nvim_set_hl(0, "Normal", { fg = vim.api.nvim_get_hl(0, { name = "Normal" }).fg, bg = "black" })
-
-vim.api.nvim_set_hl(0, "NvimTreeNormal", { fg = "#000000", bg = "#000000" })
-
--- NvimTree
--- NvimTreeNormal = { fg = c.fg_sidebar, bg = c.bg_sidebar },
--- NvimTreeRootFolder = { fg = c.blue, style = "bold" },
--- NvimTreeGitDirty = { fg = c.git.change },
--- NvimTreeGitNew = { fg = c.git.add },
--- NvimTreeGitDeleted = { fg = c.git.delete },
--- NvimTreeSpecialFile = { fg = c.purple, style = "underline" },
--- LspDiagnosticsError = { fg = c.error },
--- LspDiagnosticsWarning = { fg = c.warning },
--- LspDiagnosticsInformation = { fg = c.info },
--- LspDiagnosticsHint = { fg = c.hint },
--- NvimTreeIndentMarker = { fg = c.fg_gutter },
--- NvimTreeImageFile = { fg = c.fg_sidebar },
--- NvimTreeSymlink = { fg = c.blue },
-
--- vim.opt.guifont = "3270 Nerd Font Regular"
-
--- golang lsp setup
-
+-- Go
 require("lspconfig").gopls.setup({})
-
-vim.opt.title = true
-vim.opt.titlelen = 0 -- do not shorten title
-vim.opt.titlestring = 'nvim %{expand("%:p")}'
-
-vim.keymap.set("n", "<C-o>", ":Oil<CR>", { noremap = true, silent = true })
