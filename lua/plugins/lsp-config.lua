@@ -15,7 +15,7 @@ return {
           "dockerls",
           "gopls",
           "html",
-          "tsserver",
+          "ts_ls",
           "spectral",
           "lua_ls",
           "marksman",
@@ -50,7 +50,6 @@ return {
       vim.keymap.set("n", "<leader>ld", vim.lsp.buf.definition, { desc = "go to definition" })
       vim.keymap.set("n", "<leader>lR", vim.lsp.buf.rename, { desc = "rename all instances of symbol" })
       vim.keymap.set("n", "<leader>lr", vim.lsp.buf.references, { desc = "find all references to" })
-      -- vim.keymap.set("n", "<leader>gr", vim.lsp.buf.X, {})
       vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "perform code action" })
     end,
   },
