@@ -15,7 +15,6 @@ return {
           "dockerls",
           "gopls",
           "html",
-          "ts_ls",
           "spectral",
           "lua_ls",
           "marksman",
