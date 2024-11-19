@@ -69,10 +69,14 @@ vim.keymap.set("n", "<Leader>o", ":Oil<CR>", { noremap = true, silent = true })
 -- })
 -- Windowfrom helpers import *vim.opt.title = true
 vim.opt.titlelen = 0
-vim.opt.titlestring = 'nvim %{expand("%:p")}'
+vim.opt.titlestring = [[%{fnamemodify(getcwd(), ':t')} - %t]]
 -- Search case behaviour
 vim.o.ignorecase = true
 vim.o.smartcase = true
+
+
+
+
 
 -- LANGUAGE-SPECIFIC SETUPS
 -- Python

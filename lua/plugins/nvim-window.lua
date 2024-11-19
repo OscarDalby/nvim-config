@@ -1,8 +1,7 @@
 return {
   "yorickpeterse/nvim-window",
   keys = {
-    { "<leader>j",        "<cmd>lua require('nvim-window').pick()<cr>",  desc = "nvim-window: Jump to window" },
-    { "<leader><leader>", "<cmd>lua require('nvim-window').pick()<cr>2", desc = "nvim-window: Jump to window 2" },
+    { "<leader>j", "<cmd>lua require('nvim-window').pick()<cr>", desc = "nvim-window: Jump to window" },
   },
   config = function()
     local nvim_window = require("nvim-window")
