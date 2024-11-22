@@ -92,6 +92,16 @@ local function run_current_python_file()
   vim.api.nvim_feedkeys(py_cmd, "t", false)
 end
 
+-- vim.api.nvim_set_keymap("n", "<leader>rp", ":w<CR>:!python %<CR>", { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap("n", "<leader>rp", ":w<CR>:term python3 %<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>rpf", ":w<CR>:vsplit | term python %<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>rpm",
+  ":w<CR>:vsplit | term python -m " .. vim.fn.expand("%:t:r") .. "<CR>",
+  { noremap = true, silent = true }
+)
+
 vim.api.nvim_create_user_command("RunPy", "silent !python %", {})
 -- Folds
 vim.api.nvim_create_autocmd("FileType", {
