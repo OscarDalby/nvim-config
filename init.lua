@@ -74,10 +74,6 @@ vim.opt.titlestring = [[%{fnamemodify(getcwd(), ':t')} - %t]]
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
-
-
-
-
 -- LANGUAGE-SPECIFIC SETUPS
 -- Python
 local function run_current_python_file()
@@ -94,13 +90,19 @@ end
 
 -- vim.api.nvim_set_keymap("n", "<leader>rp", ":w<CR>:!python %<CR>", { noremap = true, silent = true })
 -- vim.api.nvim_set_keymap("n", "<leader>rp", ":w<CR>:term python3 %<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>rpf", ":w<CR>:vsplit | term python %<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>pr", ":w<CR>:vsplit | term python %<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap(
   "n",
-  "<leader>rpm",
+  "<leader>pm",
   ":w<CR>:vsplit | term python -m " .. vim.fn.expand("%:t:r") .. "<CR>",
   { noremap = true, silent = true }
 )
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.py",
+  callback = function()
+    vim.cmd("silent! !black -q %")
+  end,
+})
 
 vim.api.nvim_create_user_command("RunPy", "silent !python %", {})
 -- Folds
