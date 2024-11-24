@@ -41,6 +41,12 @@ vim.keymap.set("x", "<C-Down>", "10j", { noremap = true, silent = true })
 vim.keymap.set("n", "<C-Left>", "b", { noremap = true, silent = true })
 vim.keymap.set("n", "<C-Right>", "e", { noremap = true, silent = true })
 
+-- Resize splits with shift + arrows
+vim.api.nvim_set_keymap("n", "<S-Left>", ":vertical resize -5<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<S-Right>", ":vertical resize +5<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<S-Up>", ":resize +5<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<S-Down>", ":resize -5<CR>", { noremap = true, silent = true })
+
 -- Set the background/foreground to pure black regardless of theme
 vim.api.nvim_set_hl(0, "Normal", { fg = vim.api.nvim_get_hl(0, { name = "Normal" }).fg, bg = "black" })
 vim.api.nvim_set_hl(0, "NvimTreeNormal", { fg = "#000000", bg = "#000000" })
