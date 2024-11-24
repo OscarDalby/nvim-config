@@ -5,9 +5,9 @@ return {
   dependencies = { { "MunifTanjim/nui.nvim" } },
   opts = {
     cmdline = {
-      enabled = true,      -- enables the Noice cmdline UI
-      view = "cmdline_popup", -- view for rendering the cmdline. Change to `cmdline` to get a classic cmdline at the bottom
-      opts = {},           -- global options for the cmdline. See section on views
+      enabled = true, -- enables the Noice cmdline UI
+      view = "cmdline", -- view for rendering the cmdline. Change to `cmdline` to get a classic cmdline at the bottom
+      opts = {},     -- global options for the cmdline. See section on views
       format = {
         -- conceal: (default=true) This will hide the text in the cmdline that matches the pattern.
         -- view: (default is cmdline view)
