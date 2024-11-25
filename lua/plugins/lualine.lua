@@ -12,7 +12,7 @@ return {
           lualine_y = { "progress" },
           lualine_z = { "location" },
         },
-        theme = "dracula",
+        theme = "16color",
       },
     })
   end,
