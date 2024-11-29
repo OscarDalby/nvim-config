@@ -56,7 +56,12 @@ vim.keymap.set("n", "<Leader>o", ":Oil<CR>", { noremap = true, silent = true })
 -- Git keymaps
 vim.api.nvim_set_keymap("n", "<leader>ga", ":!git add .<CR>", { noremap = true, silent = true })
 
-vim.api.nvim_set_keymap("n", "<leader>gc", ':!git commit -m "vim auto commit"<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>gc",
+  ':!git commit -m "neovim auto commit"<CR>',
+  { noremap = true, silent = true }
+)
 
 vim.api.nvim_set_keymap("n", "<leader>gp", ":!git push origin main<CR>", { noremap = true, silent = true })
 
