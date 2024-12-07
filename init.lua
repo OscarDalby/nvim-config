@@ -72,6 +72,11 @@ vim.opt.titlestring = [[%{fnamemodify(getcwd(), ':t')} - %t]]
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
+-- Split separators
+vim.opt.fillchars = { vert = "│", horiz = "-" }
+vim.opt.laststatus = 3
+vim.cmd([[hi VertSplit guibg=NONE guifg=#001BFF]])
+
 -- Python
 vim.api.nvim_set_keymap("n", "<leader>pr", ":w<CR>:vsplit | term python %<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap(
