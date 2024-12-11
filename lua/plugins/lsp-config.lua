@@ -41,7 +41,6 @@ return {
       lspconfig.marksman.setup({ capabilities = capabilities })
       lspconfig.dockerls.setup({ capabilities = capabilities })
       lspconfig.bashls.setup({ capabilities = capabilities })
-      lspconfig.tsserver.setup({ capabilities = capabilities })
       lspconfig.grammarly.setup({ capabilities = capabilities })
       lspconfig.spectral.setup({ capabilities = capabilities })
 
