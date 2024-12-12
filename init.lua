@@ -85,6 +85,7 @@ vim.api.nvim_set_keymap(
   ":w<CR>:vsplit | term python -m " .. vim.fn.expand("%:t:r") .. "<CR>",
   { noremap = true, silent = true }
 )
+vim.api.nvim_set_keymap("n", "<leader>pi", ":!pip install -r requirements.txt<CR>", { noremap = true, silent = true })
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*.py",
   callback = function()
