@@ -86,12 +86,14 @@ vim.api.nvim_set_keymap(
   { noremap = true, silent = true }
 )
 vim.api.nvim_set_keymap("n", "<leader>pi", ":!pip install -r requirements.txt<CR>", { noremap = true, silent = true })
+
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*.py",
   callback = function()
-    vim.cmd("silent! !black -q %")
-  end,
+    vim.cmd("silent! %!black --quiet -")
+  end
 })
+
 
 -- increase the tab width in *.py files
 vim.api.nvim_create_autocmd("FileType", {
