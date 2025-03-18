@@ -94,6 +94,8 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end
 })
 
+vim.cmd("let $PYTHONPATH = expand('%:p:h')")
+
 
 -- increase the tab width in *.py files
 vim.api.nvim_create_autocmd("FileType", {
