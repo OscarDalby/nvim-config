@@ -128,3 +128,20 @@ virtual_text = {
   underline = true,
   severity_sort = true,
 })
+
+-- Trying to fix cmp with <CR>
+vim.keymap.set("i", "<CR>", function()
+  local cmp = require("cmp")
+
+  if cmp.visible() and cmp.get_selected_entry() then
+    cmp.confirm({
+      behavior = cmp.ConfirmBehavior.Insert,
+      select = false,
+    })
+  else
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, false, true), "n", true)
+  end
+end, { noremap = true })
+
+
+
