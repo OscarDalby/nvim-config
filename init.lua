@@ -109,3 +109,22 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- Go
 require("lspconfig").gopls.setup({})
+
+-- Diagnostics
+vim.diagnostic.config({
+  
+virtual_text = {
+  spacing = 4,
+  prefix = function(diagnostic)
+    local icons = { "❌", "⚠️", "💡", "ℹ️" }
+    return icons[diagnostic.severity]
+  end,
+  format = function(diagnostic)
+    return string.format("[%s] %s", diagnostic.source, diagnostic.message)
+  end,
+}
+,
+  signs = true,
+  underline = true,
+  severity_sort = true,
+})

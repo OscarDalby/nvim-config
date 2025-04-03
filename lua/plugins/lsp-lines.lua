@@ -1,0 +1,17 @@
+--
+--
+-- return {
+--   "maan2003/lsp_lines.nvim",
+--   event = "LspAttach",
+--   config = function()
+--     require("lsp_lines").setup()
+--
+--     -- Enable lsp_lines and disable virtual_text
+--     vim.diagnostic.config({
+--       virtual_text = false,
+--     })
+--
+-- vim.keymap.set("", "<Leader>ll", require("lsp_lines").toggle, { desc = "Toggle LSP Lines" })
+--
+--   end,
+-- }
