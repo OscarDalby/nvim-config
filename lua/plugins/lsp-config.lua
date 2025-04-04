@@ -22,11 +22,13 @@ return {
           "pico8_ls",
           "pyright",
           "grammarly",
-          "ts_ls", -- Add TypeScript/React
+          "ts_ls",
+          "clangd"
         },
       })
     end,
   },
+
   -- LSP config
   {
     "neovim/nvim-lspconfig",
@@ -35,6 +37,7 @@ return {
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
       local lspconfig = require("lspconfig")
 
+      -- Setup for TypeScript language server
       lspconfig.ts_ls.setup({
         capabilities = capabilities,
         on_attach = function(client, bufnr)
@@ -50,10 +53,26 @@ return {
       -- Other servers (e.g., pyright, lua_ls, etc.)
       lspconfig.lua_ls.setup({ capabilities = capabilities })
       lspconfig.pyright.setup({ capabilities = capabilities })
-      -- Add others as needed...
+
+      -- Add clangd for C++
+      lspconfig.clangd.setup({
+        capabilities = capabilities,
+        on_attach = function(client, bufnr)
+          -- optional: Disable document formatting from LSP, use null-ls or other formatter
+          -- client.server_capabilities.documentFormattingProvider = false
+
+          -- Keymaps for LSP functions
+          local opts = { buffer = bufnr, desc = "LSP Function" }
+          vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)          -- Go to Definition
+          vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)                -- Hover Documentation
+          vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)      -- Rename Symbol
+          vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts) -- Code Action
+        end,
+      })
     end,
   },
-  -- Completion
+
+  -- Completion setup
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
@@ -85,6 +104,7 @@ return {
       })
     end,
   },
+
   -- Add filetype for JSX/TSX
   vim.filetype.add({
     extension = {
