@@ -78,7 +78,7 @@ vim.opt.laststatus = 3
 vim.cmd([[hi VertSplit guibg=NONE guifg=#001BFF]])
 
 -- Python
-vim.api.nvim_set_keymap("n", "<leader>pr", ":w<CR>:vsplit | term python %<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>pr", ":term python3 %<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap(
   "n",
   "<leader>pm",
@@ -87,12 +87,6 @@ vim.api.nvim_set_keymap(
 )
 vim.api.nvim_set_keymap("n", "<leader>pi", ":!pip install -r requirements.txt<CR>", { noremap = true, silent = true })
 
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*.py",
-  callback = function()
-    vim.cmd("silent! %!black --quiet -")
-  end
-})
 
 vim.cmd("let $PYTHONPATH = expand('%:p:h')")
 
@@ -112,24 +106,24 @@ require("lspconfig").gopls.setup({})
 
 -- Diagnostics
 vim.diagnostic.config({
-  
-virtual_text = {
-  spacing = 4,
-  prefix = function(diagnostic)
-    local icons = { "❌", "⚠️", "💡", "ℹ️" }
-    return icons[diagnostic.severity]
-  end,
-  format = function(diagnostic)
-    return string.format("[%s] %s", diagnostic.source, diagnostic.message)
-  end,
-}
-,
+
+  virtual_text = {
+    spacing = 4,
+    prefix = function(diagnostic)
+      local icons = { "❌", "⚠️", "💡", "ℹ️" }
+      return icons[diagnostic.severity]
+    end,
+    format = function(diagnostic)
+      return string.format("[%s] %s", diagnostic.source, diagnostic.message)
+    end,
+  }
+  ,
   signs = true,
   underline = true,
   severity_sort = true,
 })
 
--- Trying to fix cmp with <CR>
+-- Fix cmp with <CR>
 vim.keymap.set("i", "<CR>", function()
   local cmp = require("cmp")
 
@@ -143,5 +137,6 @@ vim.keymap.set("i", "<CR>", function()
   end
 end, { noremap = true })
 
-
-
+-- Macros
+local esc = vim.api.nvim_replace_termcodes("<Esc>", true, true, true)
+vim.fn.setreg("l", "viwyo" .. "console.log(\'" .. esc .. "pa" .. "\', " .. esc .. "pa" .. ")" .. esc)
