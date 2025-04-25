@@ -50,6 +50,21 @@ return {
         end,
       })
 
+      -- PICO-8 language server setup
+      lspconfig.pico8_ls.setup({
+        capabilities = capabilities,
+        on_attach = function(client, bufnr)
+          -- Keymaps for LSP functions
+          local opts = { buffer = bufnr, desc = "PICO-8 LSP Function" }
+
+          -- Keymap for basic LSP functionality
+          vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)          -- Go to Definition
+          vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)                -- Hover Documentation
+          vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)      -- Rename Symbol
+          vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts) -- Code Action
+        end,
+      })
+
       -- Other servers (e.g., pyright, lua_ls, etc.)
       lspconfig.lua_ls.setup({ capabilities = capabilities })
       lspconfig.pyright.setup({ capabilities = capabilities })
@@ -110,6 +125,7 @@ return {
     extension = {
       jsx = "javascriptreact",
       tsx = "typescriptreact",
+      p8 = "p8"
     },
   }),
 }
